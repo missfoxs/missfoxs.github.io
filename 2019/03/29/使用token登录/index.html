@@ -79,16 +79,17 @@
 
 
 
-<meta name="description" content="个人博客网站">
-<meta property="og:type" content="website">
+<meta name="description" content="客户端使用用户名和密码请求登录 服务端收到请求，去验证用户名和密码（后台根据请求去数据库查找是否有该用户） 验证成功后，服务端会签发一个token（该token值一般都会存入Redis数据库中，并设置过期时间），再把这个token发送给客户端 客户端收到token之后，一般存储在localStorage（HTML5新特性，只要不手动删除存储的内容，存储的信息会一直存在）中 客户端每次向服务端请求">
+<meta property="og:type" content="article">
 <meta property="og:title" content="xiaoM的博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/03/29/使用token登录/index.html">
 <meta property="og:site_name" content="xiaoM的博客">
-<meta property="og:description" content="个人博客网站">
+<meta property="og:description" content="客户端使用用户名和密码请求登录 服务端收到请求，去验证用户名和密码（后台根据请求去数据库查找是否有该用户） 验证成功后，服务端会签发一个token（该token值一般都会存入Redis数据库中，并设置过期时间），再把这个token发送给客户端 客户端收到token之后，一般存储在localStorage（HTML5新特性，只要不手动删除存储的内容，存储的信息会一直存在）中 客户端每次向服务端请求">
 <meta property="og:locale" content="简体中文">
+<meta property="og:updated_time" content="2019-04-01T03:12:25.783Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="xiaoM的博客">
-<meta name="twitter:description" content="个人博客网站">
+<meta name="twitter:description" content="客户端使用用户名和密码请求登录 服务端收到请求，去验证用户名和密码（后台根据请求去数据库查找是否有该用户） 验证成功后，服务端会签发一个token（该token值一般都会存入Redis数据库中，并设置过期时间），再把这个token发送给客户端 客户端收到token之后，一般存储在localStorage（HTML5新特性，只要不手动删除存储的内容，存储的信息会一直存在）中 客户端每次向服务端请求">
 
 
 
@@ -118,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/29/使用token登录/">
 
 
 
 
 
-  <title>xiaoM的博客</title>
+  <title> | xiaoM的博客</title>
   
 
 
@@ -143,8 +144,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -217,9 +217,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -249,9 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/29/使用token登录/" itemprop="url">Untitled</a></h1>
+          <h1 class="post-title" itemprop="name headline"></h1>
         
 
         <div class="post-meta">
@@ -301,9 +299,7 @@
       
 
       
-        
-          
-            <ul>
+        <ul>
 <li>客户端使用用户名和密码请求登录</li>
 <li>服务端收到请求，去验证用户名和密码（后台根据请求去数据库查找是否有该用户）</li>
 <li>验证成功后，服务端会签发一个token（该token值一般都会存入Redis数据库中，并设置过期时间），再把这个token发送给客户端</li>
@@ -312,8 +308,6 @@
 <li>服务端收到请求，然后去验证客户端请求里面带着的token（token是否为该用户的令牌以及token是否有效等），如果验证成功，就向客户端返回请求的数据</li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 登录后存储token</span></span><br><span class="line">util.postData(url, <span class="keyword">this</span>.userInfo).then(<span class="function">(<span class="params">res</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="comment">//console.log(res);</span></span><br><span class="line">    <span class="built_in">window</span>.sessionStorage[<span class="string">'token'</span>] = <span class="built_in">JSON</span>.stringify(res.data.token);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//根据token判断是否可以跳转页面</span></span><br><span class="line">router.beforeEach(<span class="function">(<span class="params">to,<span class="keyword">from</span>,next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">//console.log(to);</span></span><br><span class="line">  <span class="comment">// 在matched中确定时候需要登录</span></span><br><span class="line">  <span class="keyword">if</span>(to.matched.some(<span class="function"><span class="params">res</span> =&gt;</span> res.meta.requireAuth))&#123;</span><br><span class="line">    <span class="keyword">if</span>(sessionStorage.getItem(<span class="string">'user'</span>))&#123;</span><br><span class="line">      next()</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      next(&#123;</span><br><span class="line">        path: <span class="string">'/login'</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'ok'</span>);</span><br><span class="line">    next();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置请求头，在接下来的请求过程中，都加上token</span></span><br><span class="line"><span class="comment">// http request 拦截器</span></span><br><span class="line">axios.interceptors.request.use(</span><br><span class="line">  config =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (sessionStorage.getItem(<span class="string">'token'</span>)) &#123; <span class="comment">//判断token是否存在</span></span><br><span class="line">      config.headers.Authorization = localStorage.token;  <span class="comment">//将token设置成请求头</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> config;</span><br><span class="line">  &#125;,</span><br><span class="line">  err =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(err);</span><br><span class="line">  &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// http response 拦截器</span></span><br><span class="line">axios.interceptors.response.use(</span><br><span class="line">  response =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (response.data.errno === <span class="number">999</span>) &#123;</span><br><span class="line">      router.replace(<span class="string">'/'</span>);</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"token过期"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> response;</span><br><span class="line">  &#125;,</span><br><span class="line">  error =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span><br><span class="line">  &#125;</span><br><span class="line">);</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> axios;</span><br></pre></td></tr></table></figure>
-          
-        
       
     </div>
     
@@ -330,12 +324,12 @@
       
 
       
+      
+      
 
       
 
       
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -345,10 +339,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -356,6 +351,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -552,6 +551,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
